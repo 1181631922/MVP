@@ -1,5 +1,6 @@
 package com.fanyafeng.mvp.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -94,7 +95,8 @@ public class MainActivity extends BaseActivity implements UserView {
 
     @Override
     public void toMainActivity(UserBean userBean) {
-        Toast.makeText(this, "成功", Toast.LENGTH_LONG).show();
+//        Toast.makeText(this, "成功", Toast.LENGTH_LONG).show();
+        startActivity(new Intent(this, PutaoMainActivity.class));
     }
 
     @Override
