@@ -24,8 +24,12 @@ import java.util.List;
  * Email: fanyafeng@live.cn
  */
 public class PutaoModelImpl implements PutaoModel {
+    private int page = 1;
+
+
     @Override
-    public void getPutaoData(final Context context,final String url, final OnPutaoListener onPutaoListener) {
+    public void getPutaoData(final Context context, final String url, final OnPutaoListener onPutaoListener) {
+        page = 1;
         new AsyncTask<String, String, String>() {
 
             @Override
@@ -69,4 +73,48 @@ public class PutaoModelImpl implements PutaoModel {
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
+
+    @Override
+    public void getMorePutaoData(final Context context, final String url, final OnPutaoListener onPutaoListener) {
+        new AsyncTask<String, String, String>() {
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+            @Override
+            protected void onPostExecute(String response) {
+                super.onPostExecute(response);
+
+                try {
+                    if (!StringUtil.isNullOrEmpty(response)) {
+                        JSONObject jsonObject = new JSONObject(response);
+
+                        if (jsonObject.getString("state").equals(NetUtil.STATE_OK)) {
+                            List<PutaoBean> putaoBeanList = new ArrayList<PutaoBean>();
+                            JSONObject data = jsonObject.optJSONObject("data");
+                            JSONArray list = data.optJSONArray("list");
+                            for (int i = 0; i < list.length(); i++) {
+                                PutaoBean putaoBean = new PutaoBean(list.optJSONObject(i));
+                                putaoBeanList.add(putaoBean);
+                            }
+                            onPutaoListener.getSuccess(putaoBeanList);
+
+                            return;
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            protected String doInBackground(String... params) {
+                return NetUtil.httpGetUtil(context, url + page);
+            }
+        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        page++;
+    }
+
+
 }

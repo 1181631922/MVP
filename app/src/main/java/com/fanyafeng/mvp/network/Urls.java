@@ -7,4 +7,6 @@ package com.fanyafeng.mvp.network;
  */
 public class Urls {
     public static final String PUTAO_MAIN_URL = "https://m.putaoputao.cn/homepage/index.do";
+
+    public static final String GOOD_LIST_URL = "https://m.putaoputao.cn/homepage/wineList.do?p=";
 }

@@ -37,7 +37,24 @@ public class PutaoPresenter {
             @Override
             public void getSuccess(List<PutaoBean> putaoBeanList) {
                 Log.d("打印列表", putaoBeanList.toString());
+                putaoView.stopRefresh();
                 putaoView.getPutaoBean(putaoBeanList);
+            }
+
+            @Override
+            public void getFailed() {
+                putaoView.stopRefresh();
+            }
+        });
+    }
+
+    public void getMoreData() {
+        putaoModel.getMorePutaoData(context, Urls.GOOD_LIST_URL, new OnPutaoListener() {
+            @Override
+            public void getSuccess(List<PutaoBean> putaoBeanList) {
+                Log.d("打印列表", putaoBeanList.toString());
+                putaoView.stopLoadmore();
+                putaoView.getMorePutaoBean(putaoBeanList);
             }
 
             @Override

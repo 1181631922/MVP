@@ -12,7 +12,12 @@ import java.util.List;
 public interface PutaoView {
     void getPutaoBean(List<PutaoBean> putaoBeanList);
 
+    void getMorePutaoBean(List<PutaoBean> putaoBeanList);
+
     void toDetailActivity();
 
+    void stopRefresh();
+
+    void stopLoadmore();
 
 }

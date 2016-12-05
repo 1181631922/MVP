@@ -8,5 +8,7 @@ import android.content.Context;
  * Email: fanyafeng@live.cn
  */
 public interface PutaoModel {
-    void getPutaoData(Context context,String url, OnPutaoListener onPutaoListener);
+    void getPutaoData(Context context, String url, OnPutaoListener onPutaoListener);
+
+    void getMorePutaoData(Context context, String url, OnPutaoListener onPutaoListener);
 }

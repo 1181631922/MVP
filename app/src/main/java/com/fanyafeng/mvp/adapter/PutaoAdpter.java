@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.andview.refreshview.recyclerview.BaseRecyclerAdapter;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.fanyafeng.mvp.R;
 import com.fanyafeng.mvp.bean.PutaoBean;
@@ -21,7 +22,7 @@ import java.util.List;
  * Data： 16/12/5 11:53
  * Email: fanyafeng@live.cn
  */
-public class PutaoAdpter extends RecyclerView.Adapter<PutaoAdpter.ShowWineViewHolder> {
+public class PutaoAdpter extends BaseRecyclerAdapter<PutaoAdpter.ShowWineViewHolder> {
 
     private Context context;
     private List<PutaoBean> productWineBeanList;
@@ -31,14 +32,20 @@ public class PutaoAdpter extends RecyclerView.Adapter<PutaoAdpter.ShowWineViewHo
         this.productWineBeanList = productWineBeanList;
     }
 
+
     @Override
-    public ShowWineViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ShowWineViewHolder getViewHolder(View view) {
+        return new ShowWineViewHolder(view);
+    }
+
+    @Override
+    public ShowWineViewHolder onCreateViewHolder(ViewGroup parent, int viewType, boolean isItem) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_show_wine, parent, false);
         return (new ShowWineViewHolder(view));
     }
 
     @Override
-    public void onBindViewHolder(ShowWineViewHolder holder, int position) {
+    public void onBindViewHolder(ShowWineViewHolder holder, int position, boolean isItem) {
         final PutaoBean productWineBean = productWineBeanList.get(position);
         holder.sdv_show_wine_view.setImageURI(Uri.parse(productWineBean.getImg()));
         holder.sdv_show_wine_view.setAdjustViewBounds(true);
@@ -48,8 +55,9 @@ public class PutaoAdpter extends RecyclerView.Adapter<PutaoAdpter.ShowWineViewHo
         holder.tv_show_wine_price.setText("人民币" + productWineBean.getSalePrice());
     }
 
+
     @Override
-    public int getItemCount() {
+    public int getAdapterItemCount() {
         return productWineBeanList.size();
     }
 

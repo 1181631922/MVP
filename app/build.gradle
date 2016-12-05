@@ -27,4 +27,5 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.4.2'
     compile 'com.facebook.fresco:fresco:0.14.1'
     compile 'com.android.support:support-v4:24.2.1'
+    compile 'com.huxq17.xrefreshview:xrefreshview:3.5.5'
 }
